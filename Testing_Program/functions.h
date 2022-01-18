@@ -1,6 +1,6 @@
 #pragma once
 #include "include.h"
 
-string getline_();
-string ConvertToAscii(const string& str);
-string ConvertFromAscii(const string& str);
+string getline();
+string convert_to_ascii(const string& str);
+string convert_from_ascii(const string& str);

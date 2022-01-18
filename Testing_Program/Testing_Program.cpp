@@ -2,22 +2,23 @@
 #include "quest.h"
 using namespace std;
 
-class Iuser
+class iuser
 {
 public:
+	virtual ~iuser() = default;
 	virtual bool regist(const string& login, const string& password, const string& fio, const string& number) = 0;
 
 	virtual bool login(const string& login, const string& password) = 0;
 
-	virtual void change_pass(const string login, string new_passowrd) = 0;
+	virtual void change_pass(string login, string new_passowrd) = 0;
 
 	virtual void parse() = 0;
 
 	virtual void save() = 0;
 
-	virtual void del_user(const string login) = 0;
+	virtual void del_user(string login) = 0;
 
-	virtual void change_user(const string login) = 0;
+	virtual void change_user(string login) = 0;
 
 	virtual bool get_logged() = 0;
 
@@ -27,11 +28,11 @@ public:
 
 };
 
-class user :public Iuser
+class user :public iuser
 {
 public:
 
-	virtual void CreateUser(const string& login, const string& fio, const string& password, const string& number, const string& access)
+	virtual void create_user(const string& login, const string& fio, const string& password, const string& number, const string& access)
 	{
 		user_[login] = {
 			{"name", fio},
@@ -65,10 +66,10 @@ public:
 
 	void change_pass(const string login, string new_passowrd) override
 	{
-		user_[login]["password"] = ConvertToAscii(getline_());
+		user_[login]["password"] = convert_to_ascii(getline());
 	}
 
-	string get_type() { return type_; }
+	string get_type() override { return type_; }
 
 	bool login(const string& login, const string& password) override
 	{
@@ -76,7 +77,7 @@ public:
 			if (user_[login]["password"] == password)
 			{
 				login_ = login;
-				fio_ = ConvertFromAscii(user_[login]["name"]);
+				fio_ = convert_from_ascii(user_[login]["name"]);
 				password_ = password;
 				logged_ = true;
 				type_ = user_[login]["access"];
@@ -106,20 +107,20 @@ public:
 		user_.erase(login);
 	}
 
-	void change_user(const string login)
+	void change_user(const string login) override
 	{
 		if (user_.contains(login)) {
 			if (user_[login] == login) {
 				if (user_[login]["access"] != "Admin")
 				{
 					cout << "Логин: ";
-					string login = ConvertToAscii(getline_());
+					string login1 = convert_to_ascii(getline());
 					cout << "\n\nПароль: ";
-					string password = ConvertToAscii(getline_());
+					string password = convert_to_ascii(getline());
 					cout << "\n\nФИО: ";
-					string fio = ConvertToAscii(getline_());
+					string fio = convert_to_ascii(getline());
 					cout << "\n\nНомер телефона: ";
-					string number = ConvertToAscii(getline_());
+					string number = convert_to_ascii(getline());
 				}
 				else throw exception("Админа нельзя изменять!");
 			}
@@ -128,14 +129,14 @@ public:
 		else throw exception("Пользователь не найден!");
 	}
 
-	void show_users()
+	void show_users() override
 	{
 		cout << "--------------";
 		for(auto &item:user_.items())
 		{
 			if (user_[item.key()]["access"] != "Admin") {
-				cout << "Логин:" << ConvertFromAscii(item.key());
-				cout << "Пароль:" << ConvertFromAscii(item.value()["password"]);
+				cout << "Логин:" << convert_from_ascii(item.key());
+				cout << "Пароль:" << convert_from_ascii(item.value()["password"]);
 			}
 			cout << "--------------";
 		}
@@ -145,7 +146,7 @@ public:
 	{
 		if (user_.contains(login)) throw exception("Пользователь уже существует");
 
-		CreateUser(login, fio, password, number, "");
+		create_user(login, fio, password, number, "");
 
 		return true;
 
@@ -173,7 +174,7 @@ public:
 	{
 		if (user_.contains(login)) throw exception("Пользователь уже существует");
 
-		CreateUser(login, fio, password, number, "Admin");
+		create_user(login, fio, password, number, "Admin");
 
 		return true;
 
@@ -187,7 +188,7 @@ public:
 	{
 		if (user_.contains(login)) throw exception("Пользователь уже существует");
 
-		CreateUser(login, fio, password, number, "Person");
+		create_user(login, fio, password, number, "Person");
 
 		return true;
 
@@ -200,7 +201,7 @@ int main()
 	SetConsoleOutputCP(1251);
 	srand(time(nullptr));
 	char choose = 0;
-	Iuser* pers = new user();
+	iuser* pers = new user();
 	pers->parse();
 	pers->save();
 	do {
@@ -213,9 +214,9 @@ int main()
 			case '1':
 			{
 				cout << "Логин: ";
-				string number = ConvertToAscii(getline_());
+				string number = convert_to_ascii(getline());
 				cout << "\n\nПароль: ";
-				string password = ConvertToAscii(getline_());
+				string password = convert_to_ascii(getline());
 				if (pers->login(number, password)) cout << "Successfully!" << endl;
 			}
 			system("cls");
@@ -234,15 +235,16 @@ int main()
 				case '2':
 					pers = new person;
 					break;
+				default: ;
 				}
 				cout << "Логин: ";
-				string login = ConvertToAscii(getline_());
+				string login = convert_to_ascii(getline());
 				cout << "\n\nПароль: ";
-				string password = ConvertToAscii(getline_());
+				string password = convert_to_ascii(getline());
 				cout << "\n\nФИО: ";
-				string fio = ConvertToAscii(getline_());
+				string fio = convert_to_ascii(getline());
 				cout << "\n\nНомер телефона: ";
-				string number = ConvertToAscii(getline_());
+				string number = convert_to_ascii(getline());
 				try
 				{
 					if (pers->regist(login, password, fio, number)) cout << "Succesfully!" << endl;
@@ -262,7 +264,6 @@ int main()
 		{
 			if(pers->get_type()== "Admin")
 			{
-				quest qu;
 				cout << "|Аккаунт Админа|\n";
 				cout << "1.Управление пользователями\n2.Управление тестированием\n>>";
 				choose = static_cast<char>(_getch());
@@ -272,15 +273,17 @@ int main()
 				case '1': {
 					pers->show_users();
 					cout << "Логин:";
-					string login = getline_();
+					string login = getline();
 				}
 					break;
 				case '2': {
+					quest qu;
 					cout << "1.Добавить категорию\n2.Выбрать категорию и создать тест\n>>";
 					choose = static_cast<char>(_getch());
 					cout << choose << "\n\n";
 					switch (choose)
 					{
+						
 					case '1': {
 						qu.create_category();
 					}
@@ -288,15 +291,16 @@ int main()
 					case '2': {
 						
 						qu.show_cat();
-						string name_cat=getline_();
+						const string name_cat=getline();
 						qu.create_test(name_cat);
 					}
 
 							break;
+					default: ;
 					}
 				}
 					break;
-				
+				default: ;
 				}
 			}
 			if (pers->get_type() == "Person")

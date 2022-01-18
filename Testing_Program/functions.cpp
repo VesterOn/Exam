@@ -1,6 +1,6 @@
 #include "functions.h"
 
-string getline_()
+string getline()
 {
 	string temp;
 	while (temp.empty())
@@ -8,7 +8,7 @@ string getline_()
 	return temp;
 }
 
-string ConvertToAscii(const string& str)
+string convert_to_ascii(const string& str)
 {
 	string res;
 	for (const int ascii : str)
@@ -16,7 +16,7 @@ string ConvertToAscii(const string& str)
 	return res;
 }
 
-string ConvertFromAscii(const string& str)
+string convert_from_ascii(const string& str)
 {
 	string res, tmp;
 	for (const char& symbol : str)
