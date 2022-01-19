@@ -1,4 +1,5 @@
 #include "quest.h"
+
 void quest::create_question(const string name_test, const string name_cat)
 {
 	int col_q = 0;
@@ -32,12 +33,10 @@ void quest::create_question(const string name_test, const string name_cat)
 		{"answer",var},
 		{"right_answer",--right_answer}
 		});
-	save_test();
 }
 
 void quest::create_test(const string name_cat)
 {
-	read_test();
 	if (!tests_.contains(name_cat)) {
 		int wl = 0;
 		string name_test;
@@ -61,16 +60,13 @@ void quest::create_test(const string name_cat)
 }
 void quest::create_category()
 {
-	read_test();
 	string name_cat;
 	cout << "Название категории:";
 	cin >> name_cat;
 	if (!tests_.contains(name_cat)) {
 		tests_[name_cat] = json::array();
-		tests_[name_cat].push_back({});
 	}
 	else throw exception("Категория уже есть!");
-	save_test();
 }
 void quest::read_test()
 {
@@ -119,3 +115,4 @@ void quest::show_cat()
 	}
 }
 
+json quest::tests_={};

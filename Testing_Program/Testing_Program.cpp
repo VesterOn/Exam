@@ -199,7 +199,7 @@ int main()
 {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-	srand(time(nullptr));
+	srand(reinterpret_cast<time_t>(nullptr));
 	char choose = 0;
 	iuser* pers = new user();
 	pers->parse();
@@ -277,7 +277,9 @@ int main()
 				}
 					break;
 				case '2': {
-					quest qu;
+					iquest* qu = new quest();
+					qu->read_test();
+					qu->save_test();
 					cout << "1.Добавить категорию\n2.Выбрать категорию и создать тест\n>>";
 					choose = static_cast<char>(_getch());
 					cout << choose << "\n\n";
@@ -285,23 +287,25 @@ int main()
 					{
 						
 					case '1': {
-						qu.create_category();
+						qu->create_category();
 					}
 							break;
 					case '2': {
 						
-						qu.show_cat();
+						qu->show_cat();
 						const string name_cat=getline();
-						qu.create_test(name_cat);
+						qu->create_test(name_cat);
 					}
 
 							break;
 					default: ;
 					}
+					qu->save_test();
 				}
 					break;
 				default: ;
 				}
+
 			}
 			if (pers->get_type() == "Person")
 			{
