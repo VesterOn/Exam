@@ -32,12 +32,12 @@ void quest::create_question(const string name_test, const string name_cat)
 		{ "question", question },
 		{"answer",var},
 		{"right_answer",--right_answer}
-		});
+	});
 }
 
 void quest::create_test(const string name_cat)
 {
-	if (!tests_.contains(name_cat)) {
+	if (tests_.contains(name_cat)) {
 		int wl = 0;
 		string name_test;
 		cout << "Название теста:";
@@ -64,7 +64,7 @@ void quest::create_category()
 	cout << "Название категории:";
 	cin >> name_cat;
 	if (!tests_.contains(name_cat)) {
-		tests_[name_cat] = json::array();
+		tests_[name_cat];
 	}
 	else throw exception("Категория уже есть!");
 }
@@ -72,7 +72,7 @@ void quest::read_test()
 {
 	const string dir = { "../Testing_Program/test/" };
 	_mkdir(dir.c_str());
-	ifstream fin(dir+"tests.json");
+	ifstream fin(dir+"test.json");
 	if (!fin.is_open()) {
 		ofstream fout(dir+"test.json");
 		fout << "{}";
@@ -109,8 +109,7 @@ void quest::show_cat()
 	cout << "------------\n";
 	for (auto& item : tests_.items())
 	{
-		string cat = item.key();
-		cout << cat;
+		cout << item.key();
 		cout << "\n------------\n";
 	}
 }

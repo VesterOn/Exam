@@ -1,12 +1,22 @@
 {
-  "TEST": {
-    "klgj": [
+  "test": {
+    "oleg": [
       {
         "answer": [
-          "1",
-          "2"
+          "yes",
+          "yes"
         ],
-        "question": "kpgdf",
+        "question": "gay?",
+        "right_answer": 1
+      }
+    ],
+    "oleg2": [
+      {
+        "answer": [
+          "yes",
+          "yes"
+        ],
+        "question": "gay?",
         "right_answer": 1
       }
     ]

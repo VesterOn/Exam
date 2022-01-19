@@ -279,7 +279,7 @@ int main()
 				case '2': {
 					iquest* qu = new quest();
 					qu->read_test();
-					qu->save_test();
+					//qu->save_test();
 					cout << "1.Добавить категорию\n2.Выбрать категорию и создать тест\n>>";
 					choose = static_cast<char>(_getch());
 					cout << choose << "\n\n";
