@@ -146,8 +146,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="functions.cpp" />
-    <ClCompile Include="LS_Json.cpp" />
-    <ClCompile Include="quest.cpp" />
     <ClCompile Include="Testing_Program.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\Dependencies\include</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\Dependencies\include</AdditionalIncludeDirectories>
@@ -158,8 +156,6 @@
   <ItemGroup>
     <ClInclude Include="functions.h" />
     <ClInclude Include="include.h" />
-    <ClInclude Include="LS_Json.h" />
-    <ClInclude Include="quest.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

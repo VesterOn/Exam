@@ -1,23 +1,41 @@
 {
-  "test": {
-    "oleg": [
+  "Test": {
+    "test1": [
       {
         "answer": [
           "yes",
+          "no"
+        ],
+        "question": "yes or no?",
+        "right_answer": 0
+      },
+      {
+        "answer": [
+          "no",
           "yes"
         ],
-        "question": "gay?",
+        "question": "yes or no?",
+        "right_answer": 1
+      },
+      {
+        "answer": [
+          "no",
+          "yes1"
+        ],
+        "question": "yes or no?",
         "right_answer": 1
       }
-    ],
-    "oleg2": [
+    ]
+  },
+  "tests": {
+    "tests2": [
       {
         "answer": [
           "yes",
-          "yes"
+          "no"
         ],
-        "question": "gay?",
-        "right_answer": 1
+        "question": "yes or no?",
+        "right_answer": 0
       }
     ]
   }
